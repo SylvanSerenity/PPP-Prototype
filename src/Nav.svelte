@@ -44,9 +44,13 @@
 		color: white;
 	}
 
-	img {
+	li img {
 		height: 2rem;
 		margin-right: 10px;
+	}
+
+	img {
+		height: calc(var(--nav-height) - 6px);
 	}
 
 	ul {
@@ -160,7 +164,7 @@
 	.search-container {
 		position: fixed;
 		right: 0;
-		margin: 5px;
+		margin: 8px;
 		z-index: 100;
 	}
 

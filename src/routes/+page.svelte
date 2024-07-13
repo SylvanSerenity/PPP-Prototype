@@ -2,14 +2,19 @@
 	import Nav from '../Nav.svelte';
 	import Footer from '../Footer.svelte';
 	import Slideshow from './Slideshow.svelte';
+
+	const images = ["slideshow/cats.png", "slideshow/dogs.png", "slideshow/consultation.png"];
 </script>
 
 <Nav />
 
 <main>
-	<Slideshow />
+	<Slideshow {images} />
 
-	<h1>Home</h1>
+	<div class="content">
+		<h1>About</h1>
+		<p>Paradigm Pet Professionals...</p>
+	</div>
 </main>
 
 <Footer />
@@ -33,5 +38,20 @@
 	}
 	:global(main) {
 		flex: 1;
+
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	h1 {
+		padding: 5px;
+		text-align: center;
+	}
+
+	.content {
+		max-width: 80%;
+		padding: 10px;
 	}
 </style>

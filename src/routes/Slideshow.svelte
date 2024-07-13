@@ -1,5 +1,5 @@
 <script lang="ts">
-	const images = ["slideshow/cats.png", "slideshow/dogs.png", "slideshow/consultation.png"];
+	export let images: string[] = [];
 	let imageIndex = 0;
 	let direction = 'next';
 
