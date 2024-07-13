@@ -4,7 +4,7 @@
 
 <nav>
 	<ul class="nav-section">
-		<li><a class="nav-item" href="/"><img src="/favicon.png" alt="Logo"><span class="nav-link">Home</span></a></li>
+		<li><a class="nav-item" href="/"><img src="/favicon.png" alt="Logo"><span class="nav-link">Paradigm Pet<br>Professionals</span></a></li>
 		<li class="dropdown nav-item">
 			<span class="nav-link">Pets</span>
 			<ul class="dropdown-menu">
@@ -74,7 +74,7 @@
 	}
 
 	.nav-item {
-		margin-right: 15px;
+		margin-right: 5px;
 		padding: 10px;
 		height: 100%;
 

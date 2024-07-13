@@ -3,7 +3,7 @@
 	import Footer from '../Footer.svelte';
 	import Slideshow from './Slideshow.svelte';
 
-	const images = ["slideshow/cats.png", "slideshow/dogs.png", "slideshow/consultation.png"];
+	const images = ["/slideshow/cats.png", "/slideshow/dogs.png", "/slideshow/ferret.png", "/slideshow/consultation.png"];
 </script>
 
 <Nav />
@@ -13,6 +13,8 @@
 
 	<div class="content">
 		<h1>About</h1>
+		<p>Paradigm Pet Professionals...</p>
+		<h1>Services</h1>
 		<p>Paradigm Pet Professionals...</p>
 	</div>
 </main>
@@ -49,9 +51,12 @@
 		padding: 5px;
 		text-align: center;
 	}
+	p {
+		padding: 5px;
+	}
 
 	.content {
 		max-width: 80%;
-		padding: 10px;
+		margin: 10px;
 	}
 </style>

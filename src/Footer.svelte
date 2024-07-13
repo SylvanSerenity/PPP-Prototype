@@ -4,6 +4,7 @@
 		<br>
 		<a href="/contact">Contact Us</a> | <a href="/contact/feedback">Feedback</a>
 	</p>
+	<a href="/"><img src="/logo.png" alt="Company Logo"></a>
 </footer>
 
 <style>
@@ -12,6 +13,7 @@
 		width: 100%;
 
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		text-align: center;
@@ -24,5 +26,10 @@
 	a {
 		color: white;
 		text-decoration: none;
+	}
+
+	img {
+		margin-top: 5px;
+		height: 30px;
 	}
 </style>
