@@ -13,9 +13,20 @@
 
 	<div class="content">
 		<h1>About</h1>
-		<p>Paradigm Pet Professionals...</p>
+		<p>
+			Pets are nature's gift to humanity. It has been scientifically proven that opening our homes and hearts to a pet
+			increases our longevity and improves our overall quality of life as well as the lives of our pets. At Pet Paradigm
+			Professionals, our mission is to offer resources to help you care for your furry, scaly, feathery, and slimy loved
+			ones. Our pet experts—or “Pexperts”—have been working with pet owners and professionals alike for the past twelve
+			years. They offer one-on-one consultations with current and prospective pet owners as well as group presentations
+			designed for veterinary, pet shelter, and pet breeding professionals.
+		</p>
 		<h1>Services</h1>
-		<p>Paradigm Pet Professionals...</p>
+		<p>
+			Looking for basic pet care advice for the most common type of pets? Need additional help determining which type of
+			pet is right for you and your family? We will work with you and provide tailored evidence-based pet care to ensure
+			lifelong health and wellness of your new companion.
+		</p>
 	</div>
 </main>
 
@@ -47,16 +58,22 @@
 		justify-content: center;
 	}
 
+	:global(.content) {
+		width: 80%;
+		margin: 20px;
+	}
+	@media screen and (min-width:920px) {
+		:global(.content) {
+			max-width: 50%;
+		}
+	}
+
 	h1 {
 		padding: 5px;
 		text-align: center;
 	}
 	p {
 		padding: 5px;
-	}
-
-	.content {
-		max-width: 80%;
-		margin: 10px;
+		margin-bottom: 10px;
 	}
 </style>
