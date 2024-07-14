@@ -32,4 +32,9 @@
 		margin-top: 5px;
 		height: 30px;
 	}
+
+	p {
+		padding: 0;
+		margin: 0;
+	}
 </style>

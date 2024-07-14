@@ -1,0 +1,19 @@
+img {
+	max-width: 40%;
+	max-height: 20%;
+	margin: 25px;
+
+	border: 1px solid #676767;
+	border-radius: 8px;
+	box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease;
+}
+img:hover {
+	transform: scale(1.1);
+}
+.right {
+	float: right;
+}
+.left {
+	float: left;
+}
