@@ -68,6 +68,8 @@
 			errors.phone = '* Phone number is required.';
 		} else if (!phonePattern.test(phone)) {
 			errors.phone = '* Phone number must be valid.';
+		} else if (phone.length < 10) {
+			errors.phone = '* Phone number must be at least 10 digits.';
 		}
 	}
 	function validateContact() {
@@ -95,14 +97,14 @@
 			petName = '';
 			petAge = 0;
 		} else {
-			errors.pet = 'All pet information is required.';
+			errors.pet = '* All pet information is required.';
 		}
 	}
 	function validatePets() {
 		errors.pet = '';
 
 		if (petSpecies.trim() || petName.trim() || petAge > 0) {
-			errors.pet = 'Please save or remove pet information.';
+			errors.pet = '* Please save or remove pet information.';
 			return false;
 		}
 		return true;
@@ -116,9 +118,9 @@
 		errors.date = '';
 
 		if (!date) {
-			errors.date = 'Date is required.';
+			errors.date = '* Date is required.';
 		} else if (new Date() > new Date(date)) {
-			errors.date = "Date must be in the future."
+			errors.date = "* Date must be in the future."
 		}
 	}
 	function validateSchedule() {
