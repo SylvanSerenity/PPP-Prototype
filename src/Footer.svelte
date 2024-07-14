@@ -1,7 +1,7 @@
 <footer>
 	<p>
-		&#169;2024 Paradigm Pet Professionals
-		<br>
+		<i>Evidence-based pet care advice for every pet lover.</i><br>
+		&#169;2024 Paradigm Pet Professionals<br>
 		<a href="/contact">Contact Us</a> | <a href="/contact/feedback">Feedback</a>
 	</p>
 	<a href="/"><img src="/logo.png" alt="Company Logo"></a>
@@ -9,8 +9,8 @@
 
 <style>
 	footer {
-		height: calc(var(--nav-height) * 1.5);
 		width: 100%;
+		padding: 5px;
 
 		display: flex;
 		flex-direction: column;
