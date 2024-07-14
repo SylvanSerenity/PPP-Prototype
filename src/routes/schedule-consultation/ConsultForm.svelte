@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { error } from "@sveltejs/kit";
+	import { onMount } from 'svelte';
+	import { tweened } from 'svelte/motion';
+	import { cubicInOut } from 'svelte/easing';
 
 	// Errors
 	let errors = {
@@ -32,9 +34,11 @@
 	}
 	function nextPage() {
 		if (validatePage()) page = (page + 1) % pages.length;
+		upgradeProgress();
 	}
 	function previousPage() {
 		if (page !== 0 || validateForm()) page = (pages.length + (page - 1)) % pages.length
+		upgradeProgress();
 	}
 
 	// Contact page
@@ -145,13 +149,29 @@
 			date = '';
 			comments = '';
 			alert('Scheduled Consultation!');
+
+			// Return to start
+			page = 0;
+			upgradeProgress();
 		}
 		event.preventDefault();
 	};
+
+	// Progress bar
+	const progress = tweened(0, {
+		duration: 400,
+		easing: cubicInOut
+	});
+	function upgradeProgress() {
+		progress.set((page) / (pages.length - 1) * 100);
+		console.log(progress);
+	}
+	onMount(upgradeProgress);
 </script>
 
 <style>
 	.form-container {
+		position: relative;
 		padding: 20px;
 
 		display: flex;
@@ -162,6 +182,21 @@
 		border-radius: 10px;
 		box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);
 		color: white;
+		overflow: hidden;
+	}
+
+	.progress-bar-container {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 8px;
+		background-color: lightgray;
+	}
+	.progress-bar {
+		position: absolute;
+		left: 0;
+		height: 100%;
+		background-color: #6699cc;
 	}
 
 	form {
@@ -235,6 +270,9 @@
 </style>
 
 <div class="form-container">
+	<div class="progress-bar-container">
+		<span class="progress-bar" style="width: {$progress}%"></span>
+	</div>
 	<form onsubmit={handleSubmit}>
 		{#if page === 0}
 			<div class="header">
