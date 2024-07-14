@@ -1,15 +1,46 @@
 <script lang="ts">
-	let name = '';
-	let email = '';
-	let message = '';
+	import { error } from "@sveltejs/kit";
+
+	// Errors
 	let errors = {
 		name: '',
 		email: '',
 		phone: '',
-		message: ''
-	}
+		pet: '',
+		date: ''
+	};;
 	const emailPattern = /^[a-z0-9\.]+@[a-z0-9]+\.[a-z]+$/;
+	const phonePattern = /^[0-9\-\+\(\)\s]+$/;
 
+	// Pages
+	let page = 0;
+	const pages = ['contact', 'pets', 'schedule', 'comments'];
+
+	function validatePage() {
+		switch (pages[page]) {
+			case 'contact': {
+				return validateContact();
+			}
+			case 'pets': {
+				return validatePets();
+			}
+			case 'schedule': {
+				return validateSchedule();
+			}
+			default: return true;
+		}
+	}
+	function nextPage() {
+		if (validatePage()) page = (page + 1) % pages.length;
+	}
+	function previousPage() {
+		if (page !== 0 || validateForm()) page = (pages.length + (page - 1)) % pages.length
+	}
+
+	// Contact page
+	let name = '';
+	let email = '';
+	let phone = '';
 	function validateName() {
 		errors.name = '';
 
@@ -17,7 +48,6 @@
 			errors.name = '* Name is required.';
 		}
 	}
-
 	function validateEmail() {
 		errors.email = '';
 
@@ -27,29 +57,82 @@
 			errors.email = '* Email must be valid.';
 		}
 	}
+	function validatePhone() {
+		errors.phone = '';
 
-	function validateMessage() {
-		errors.message = '';
-
-		if (message.trim() === '') {
-			errors.message = '* Message is required.';
+		if (phone.trim() === '') {
+			errors.phone = '* Phone number is required.';
+		} else if (!phonePattern.test(phone)) {
+			errors.phone = '* Phone number must be valid.';
 		}
 	}
-
-	function validateForm() {
+	function validateContact() {
 		validateName();
 		validateEmail();
-		validateMessage();
+		validatePhone();
+		return !(errors.name || errors.email || errors.phone);
 	}
 
+	// Pets page
+	let petSpecies = '';
+	let petName = '';
+	let petAge = 0;
+	let pets: {
+		petSpecies: string,
+		petName: string,
+		petAge: number
+	}[] = [];
+	function savePet() {
+		if (petSpecies.trim() && petName.trim() && petAge >= 0) {
+			pets = [...pets, ({ petSpecies, petName, petAge })];
+
+			// Reset fields after submitting
+			petSpecies = '';
+			petName = '';
+			petAge = 0;
+		} else {
+			errors.pet = 'All pet information is required.';
+		}
+	}
+	function validatePets() {
+		errors.pet = '';
+
+		if (petSpecies.trim() || petName.trim() || petAge > 0) {
+			errors.pet = 'Please save or remove pet information.';
+			return false;
+		}
+		return true;
+	}
+
+	// Schedule page
+	let date = '';
+	function validateSchedule() {
+		errors.date = '';
+
+		if (!date) {
+			errors.date = 'Date is required.';
+			return false;
+		} else if (new Date() > new Date(date)) {
+			errors.date = "Date must be in the future."
+			return false;
+		}
+		return true;
+	}
+
+	// Submit page
+	let comments = '';
+	function validateForm() {
+		return validateContact() && validatePets() && validateSchedule();
+	}
 	function handleSubmit(event: SubmitEvent) {
-		validateForm();
-		if (!errors.name && !errors.email && !errors.message) {
+		if (validateForm()) {
 			const formData = new CustomEvent('submit', {
 			detail: {
 				name,
 				email,
-				message
+				phone,
+				pets,
+				comments
 			}
 			});
 			dispatchEvent(formData);
@@ -57,8 +140,11 @@
 			// Reset fields after submitting
 			name = '';
 			email = '';
-			message = '';
-			alert('Sent!');
+			phone = '';
+			pets = [];
+			date = '';
+			comments = '';
+			alert('Scheduled Consultation!');
 		}
 		event.preventDefault();
 	};
@@ -66,11 +152,16 @@
 
 <style>
 	.form-container {
-		width: 100%;
+		padding: 20px;
 
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
+		background-color: #676767;
+		border-radius: 10px;
+		box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);
+		color: white;
 	}
 
 	form {
@@ -78,6 +169,7 @@
 
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 	}
 
 	label {
@@ -100,6 +192,7 @@
 
 	button {
 		padding: 10px;
+		margin-bottom: 10px;
 		width: 80px;
 		font-size: 1em;
 
@@ -113,31 +206,107 @@
 	button:hover {
 		transform: scale(1.05);
 	}
+	.page-selector {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
 
 	.error {
 		text-align: right;
+		padding: 2px;
 
 		color: red;
+	}
+
+	li {
+		padding: 5px;
+	}
+	h2 {
+		text-align: center;
+	}
+	p {
+		text-align: center;
+	}
+	.header {
+		align-self: center;
+		width: 80%;
 	}
 </style>
 
 <div class="form-container">
 	<form onsubmit={handleSubmit}>
-		<label>
-			Name:
-			<input type="text" placeholder="John Doe" bind:value={name}  oninput={validateName} required />
-			<span class="error">{errors.name}</span>
-		</label>
-		<label>
-			Email:
-			<input type="email" placeholder="email@domain.ext" bind:value={email} oninput={validateEmail} required />
-			<span class="error">{errors.email}</span>
-		</label>
-		<label>
-			Message:
-			<textarea placeholder="Hello!" bind:value={message} oninput={validateMessage} required></textarea>
-			<span class="error">{errors.message}</span>
-		</label>
-		<button type="submit">Submit</button>
+		{#if page === 0}
+			<div class="header">
+				<h2>Contact Info</h2>
+				<p>Please provide contact information for us to contact you about your consultation.</p>
+			</div>
+			<label>
+				Name:
+				<input type="text" placeholder="John Doe" bind:value={name}  oninput={validateName} required />
+				<span class="error">{errors.name}</span>
+			</label>
+			<label>
+				Email:
+				<input type="email" placeholder="email@domain.ext" bind:value={email} oninput={validateEmail} required />
+				<span class="error">{errors.email}</span>
+			</label>
+			<label>
+				Phone Number:
+				<input type="tel" placeholder="(555) 555-5555" bind:value={phone} oninput={validatePhone} required />
+				<span class="error">{errors.phone}</span>
+			</label>
+		{:else if page === 1}
+			<div class="header">
+				<h2>Pet Info</h2>
+				<p>If you have any pets that are the topic of the consultation, please provide their information below.</p>
+			</div>
+			<label>
+				Species:
+				<input type="text" placeholder="Dog" bind:value={petSpecies} required />
+			</label>
+			<label>
+				Name:
+				<input type="text" placeholder="Spot" bind:value={petName} required />
+			</label>
+			<label>
+				Age:
+				<input type="number" placeholder="3" bind:value={petAge} required />
+			</label>
+			<span class="error">{errors.pet}</span>
+			<button type="button" onclick={savePet}>Save</button>
+			<ul>
+				{#each pets as pet}
+					<li>{pet.petAge}-year-old {pet.petName} the {pet.petSpecies}</li>
+				{/each}
+			</ul>
+		{:else if page === 2}
+			<div class="header">
+				<h2>Consultation Date</h2>
+				<p>Please schedule a date for the consultation. We will contact you with available times on your requested date.</p>
+			</div>
+			<label>
+				Date:
+				<input type="date" bind:value={date}  oninput={validateSchedule} required />
+				<span class="error">{errors.date}</span>
+			</label>
+		{:else if page === 3}
+			<div class="header">
+				<h2>Additional Comments</h2>
+				<p>Feel free to leave any more information for your Pexpert!</p>
+			</div>
+			<label>
+				Comments:
+				<textarea placeholder="Hello!" bind:value={comments}></textarea>
+			</label>
+		{/if}
+		<div class="page-selector">
+			<button type="button" onclick={previousPage}>Previous</button>
+			{#if page !== (pages.length - 1)}
+				<button type="button" onclick={nextPage}>Next</button>
+			{:else}
+				<button type="submit">Submit</button>
+			{/if}
+		</div>
 	</form>
 </div>

@@ -2,38 +2,49 @@
 	let name = '';
 	let email = '';
 	let message = '';
-	let errors = {
+	const clearErrors = {
 		name: '',
 		email: '',
 		message: ''
-	}
+	};
+	let errors = clearErrors;
 	const emailPattern = /^[a-z0-9\.]+@[a-z0-9]+\.[a-z]+$/;
 
-	function validateForm() {
-		errors = {
-			name: '',
-			email: '',
-			message: ''
-		};
+	function validateName() {
+		errors.name = '';
 
 		if (name.trim() === '') {
 			errors.name = '* Name is required.';
 		}
+	}
+
+	function validateEmail() {
+		errors.email = '';
 
 		if (email.trim() === '') {
 			errors.email = '* Email is required.';
 		} else if (!emailPattern.test(email.toLocaleLowerCase())) {
 			errors.email = '* Email must be valid.';
 		}
+	}
+
+	function validateMessage() {
+		errors.message = '';
 
 		if (message.trim() === '') {
 			errors.message = '* Message is required.';
 		}
 	}
 
+	function validateForm() {
+		validateName();
+		validateEmail();
+		validateMessage();
+		return !(errors.name || errors.email || errors.message);
+	}
+
 	function handleSubmit(event: SubmitEvent) {
-		validateForm();
-		if (!errors.name && !errors.email && !errors.message) {
+		if (validateForm()) {
 			const formData = new CustomEvent('submit', {
 			detail: {
 				name,
