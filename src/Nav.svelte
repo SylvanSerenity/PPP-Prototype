@@ -154,8 +154,12 @@
 
 		border: 1px solid white;
 		border-radius: 18px;
+	}
+	:global(.cta) {
+		font-weight: bolder;
+		color: white;
+		box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);
 		transition: transform 0.3s ease;
-		font-weight: bold;
 	}
 	.cta:hover {
 		transform: scale(1.05);
