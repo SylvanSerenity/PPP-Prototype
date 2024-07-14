@@ -109,18 +109,21 @@
 	}
 
 	// Schedule page
+	const timeZones = ['Pacific', 'Mountain', 'Central', 'Eastern'];
 	let date = '';
-	function validateSchedule() {
+	let timeZone = 'Pacific';
+	function validateDate() {
 		errors.date = '';
 
 		if (!date) {
 			errors.date = 'Date is required.';
-			return false;
 		} else if (new Date() > new Date(date)) {
 			errors.date = "Date must be in the future."
-			return false;
 		}
-		return true;
+	}
+	function validateSchedule() {
+		validateDate();
+		return !errors.date;
 	}
 
 	// Submit page
@@ -147,6 +150,7 @@
 			phone = '';
 			pets = [];
 			date = '';
+			timeZone = 'Pacific';
 			comments = '';
 			alert('Scheduled Consultation!');
 
@@ -325,8 +329,16 @@
 			</div>
 			<label>
 				Date:
-				<input type="date" bind:value={date}  oninput={validateSchedule} required />
+				<input type="date" bind:value={date}  oninput={validateDate} required />
 				<span class="error">{errors.date}</span>
+			</label>
+			<label>
+				Time Zone:
+				<select bind:value={timeZone}  required>
+					{#each timeZones as tz}
+						<option value={tz} selected={tz === timeZone}>{tz}</option>
+					{/each}
+				</select>
 			</label>
 		{:else if page === 3}
 			<div class="header">
