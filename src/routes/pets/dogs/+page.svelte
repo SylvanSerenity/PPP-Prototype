@@ -3,6 +3,10 @@
 	import Footer from '../../../Footer.svelte';
 </script>
 
+<svelte:head>
+	<title>Dogs</title>
+</svelte:head>
+
 <Nav />
 
 <main>

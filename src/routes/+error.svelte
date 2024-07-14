@@ -4,6 +4,10 @@
 	import Footer from '../Footer.svelte';
 </script>
 
+<svelte:head>
+	<title>Error</title>
+</svelte:head>
+
 <Nav />
 
 <main>

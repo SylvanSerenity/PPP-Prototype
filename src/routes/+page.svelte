@@ -11,6 +11,10 @@
 	];
 </script>
 
+<svelte:head>
+	<title>Paradigm Pet Professionals</title>
+</svelte:head>
+
 <Nav />
 
 <main>
