@@ -2,12 +2,11 @@
 	let name = '';
 	let email = '';
 	let message = '';
-	const clearErrors = {
+	let errors = {
 		name: '',
 		email: '',
 		message: ''
 	};
-	let errors = clearErrors;
 	const emailPattern = /^[a-z0-9\.]+@[a-z0-9]+\.[a-z]+$/;
 
 	function validateName() {
