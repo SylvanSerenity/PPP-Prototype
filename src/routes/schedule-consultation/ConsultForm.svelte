@@ -37,7 +37,7 @@
 		upgradeProgress();
 	}
 	function previousPage() {
-		if (page !== 0 || validateForm()) page = (pages.length + (page - 1)) % pages.length
+		if (page !== 0 || validateForm()) page = (pages.length + (page - 1)) % pages.length;
 		upgradeProgress();
 	}
 
