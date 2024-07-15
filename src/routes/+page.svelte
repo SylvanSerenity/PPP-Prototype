@@ -48,7 +48,7 @@
 		<p>
 			Considering a small and delightful pet to join your household? For those curious about small animals like
 			hamsters, guinea pigs, ferrets, or even mice, check out our page tailored for
-			<a href="/pets/dogs">small animal enthusiasts</a>!
+			<a href="/pets/small-animals">small animal enthusiasts</a>!
 		</p>
 	</div>
 </main>
