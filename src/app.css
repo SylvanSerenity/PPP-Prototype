@@ -37,9 +37,11 @@ main {
 h1 {
 	padding: 5px;
 	text-align: center;
+	color: #040c3d;
 }
 h2 {
 	padding: 3px;
+	color: #05105a;
 }
 p {
 	padding: 5px;
