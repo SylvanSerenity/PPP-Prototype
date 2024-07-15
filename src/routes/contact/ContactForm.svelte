@@ -124,17 +124,17 @@
 	<form onsubmit={handleSubmit}>
 		<label>
 			Name:
-			<input type="text" placeholder="John Doe" bind:value={name}  oninput={validateForm} required />
+			<input type="text" placeholder="John Doe" bind:value={name}  oninput={validateName} required />
 			<span class="error">{errors.name}</span>
 		</label>
 		<label>
 			Email:
-			<input type="email" placeholder="email@domain.ext" bind:value={email} oninput={validateForm} required />
+			<input type="email" placeholder="email@domain.ext" bind:value={email} oninput={validateEmail} required />
 			<span class="error">{errors.email}</span>
 		</label>
 		<label>
 			Message:
-			<textarea placeholder="Hello!" bind:value={message} oninput={validateForm} required></textarea>
+			<textarea placeholder="Hello!" bind:value={message} oninput={validateMessage} required></textarea>
 			<span class="error">{errors.message}</span>
 		</label>
 		<button type="submit">Submit</button>
