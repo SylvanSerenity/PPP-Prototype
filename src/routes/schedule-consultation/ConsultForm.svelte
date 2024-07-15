@@ -170,7 +170,6 @@
 	});
 	function upgradeProgress() {
 		progress.set((page) / (pages.length - 1) * 100);
-		console.log(progress);
 	}
 	onMount(upgradeProgress);
 </script>
