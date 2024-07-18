@@ -170,6 +170,8 @@
 		right: 0;
 		margin: 8px;
 		z-index: 100;
+
+		display: flex;
 	}
 
 	.search-icon {
@@ -183,6 +185,7 @@
 	.search-container input {
 		height: 1.5rem;
 		padding: 2px;
+		margin-right: 5px;
 	}
 
 	.search-field {
